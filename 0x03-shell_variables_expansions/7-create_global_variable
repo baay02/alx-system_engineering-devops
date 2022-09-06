@@ -1,2 +1,2 @@
 #!/bin/bash
-exort SCHOOL="Best"
+export BEST="School"
