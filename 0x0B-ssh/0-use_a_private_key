@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#am doing the hard deal
+ssh ubuntu@54.162.94.36 -i ~/.ssh/school
