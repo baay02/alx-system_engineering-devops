@@ -11,7 +11,7 @@ frontend myfrontend
         default_backend myservers
 backend myservers
         balance roundrobin
-        server web-01 54.162.94.36:80 check
+        server web-01 54.164.55.231:80 check
         server web-02 54.157.188.140:80 check
 EOT
 
