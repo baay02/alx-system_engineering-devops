@@ -33,7 +33,7 @@ defaults
 
 frontend my_frontend
         bind *:80
-        bind *:443 ssl crt /etc/letsencrypt/live/baayconsult.tech/fullchain.pem
+        bind *:443 ssl crt /etc/letsencrypt/live/www.baayconsult.tech/fullchain.pem
         mode http
         default_backend my_backend_1
 
