@@ -31,13 +31,13 @@ defaults
         errorfile 504 /etc/haproxy/errors/504.http
 
 
-frontend my_frontend
+frontend myfrontend
         bind *:80
         bind *:443 ssl crt /etc/letsencrypt/live/www.baayconsult.tech/fullchain.pem
         mode http
-        default_backend my_backend_1
+        default_backend myservers
 
-backend my_backend_1
+backend myservers
         balance roundrobin
-        server 129254-web-01 54.164.55.231:80 check
-        server 129254-web-02 54.157.188.140:80 check
+        server web-01 54.164.55.231:80 check
+        server web-02 54.157.188.140:80 check
