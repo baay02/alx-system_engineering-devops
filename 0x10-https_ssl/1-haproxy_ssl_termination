@@ -8,9 +8,12 @@ global
         group haproxy
         daemon
 
+        # Default SSL material locations
+        ca-base /etc/ssl/certs
+        crt-base /etc/ssl/private
 
         # See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:>
+        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
         ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
         ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
 
@@ -31,13 +34,19 @@ defaults
         errorfile 504 /etc/haproxy/errors/504.http
 
 
-frontend myfrontend
-        bind *:80
-        bind *:443 ssl crt /etc/letsencrypt/live/www.baayconsult.tech/fullchain.pem
-        mode http
-        default_backend myservers
 
-backend myservers
+# start of parameters for www.baayconsult.tech
+frontend nwabueze.tech-http-frontend
+        bind     *:80
+        redirect scheme https code 301 if !{ ssl_fc }
+        http-request set-header X-Forwarded-Proto http
+        default_backend  www-backend
+frontend b3zaleel-alx.tech-https-frontend
+        bind *:443 ssl crt /etc/letsencrypt/live/www.baayvonsult.tech/fullchain.pem
+        http-request set-header X-Forwarded-Proto https
+        default_backend www-backend
+backend nwabueze.tech-backend
         balance roundrobin
-        server web-01 54.164.55.231:80 check
-        server web-02 54.157.188.140:80 check
+        server 129254-web-01 54.164.55.231:80 check
+        server 129254-web-02 54.157.188.140:80 check
+# end of parameters
