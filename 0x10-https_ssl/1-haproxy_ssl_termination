@@ -36,16 +36,16 @@ defaults
 
 
 # start of parameters for www.baayconsult.tech
-frontend nwabueze.tech-http-frontend
+frontend baayconsult.tech-http-frontend
         bind     *:80
         redirect scheme https code 301 if !{ ssl_fc }
         http-request set-header X-Forwarded-Proto http
         default_backend  www-backend
-frontend b3zaleel-alx.tech-https-frontend
-        bind *:443 ssl crt /etc/letsencrypt/live/www.baayvonsult.tech/fullchain.pem
+frontend baayconsult.tech-https-frontend
+        bind *:443 ssl crt /etc/letsencrypt/live/www.baayconsult.tech/fullchain.pem
         http-request set-header X-Forwarded-Proto https
         default_backend www-backend
-backend nwabueze.tech-backend
+backend baayconsult.tech-backend
         balance roundrobin
         server 129254-web-01 54.164.55.231:80 check
         server 129254-web-02 54.157.188.140:80 check
