@@ -1,4 +1,4 @@
-# Seting up my client config file
+# Seting up my client config fill
 
 file_line { 'Turn off passwd auth':
   ensure => present,
