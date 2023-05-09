@@ -1,14 +1,17 @@
 #!/usr/bin/python3
+"""Recursive function to return top posts from a subreddit"""
 
-"""a script to call an api recursively"""
 import requests
 
 
 def recurse(subreddit, hot_list=[]):
-    """a function to call an api recursively"""
-
+    """
+    Recursively queries the Reddit API and returns a list containing the titles
+     top posts
+    """
     url = "https://www.reddit.com/r/{}/hot.json?limit=50".format(subreddit)
-    headers = {"User-Agent": 'My agent'}
+    headers = {"User-Agent": "My Client"}
+
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code == 200:
@@ -17,8 +20,8 @@ def recurse(subreddit, hot_list=[]):
         for post in posts['data']['children']:
             hot_list.append(post['data']['title'])
 
-        if posts['data']['after'] is not None:
-            recurse(subreddit, hot_list=hot_list)
-        return hot_list
+        url = '{}&after={}'.format(url, posts['data']['after'])
     else:
         return None
+
+    return hot_list
