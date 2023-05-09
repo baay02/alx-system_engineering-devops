@@ -1,14 +1,24 @@
 #!/usr/bin/python3
-""" script to retrieve the number of subs on a subreddit"""
 
+"""a script to call an api recursively"""
 import requests
 
-def number_of_subscribers(subreddit):                   """return the no of subs on subreddit"""
 
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {"User-Agent": 'My Agent'}
+def recurse(subreddit, hot_list=[]):
+    """a function to call an api recursively"""
+
+    url = "https://www.reddit.com/r/{}/hot.json?limit=50".format(subreddit)
+    headers = {"User-Agent": 'My agent'}
     response = requests.get(url, headers=headers, allow_redirects=False)
+
     if response.status_code == 200:
-        data = response.json()
-        no_subs = data.get("data").get("subscribers")
-        return no_subs                                  else:                                                   return 0
+        posts = response.json()
+
+        for post in posts['data']['children']:
+            hot_list.append(post['data']['title'])
+
+        if posts['data']['after'] is not None:
+            recurse(subreddit, hot_list=hot_list)
+        return hot_list
+    else:
+        return None
