@@ -9,6 +9,7 @@ def recurse(subreddit, hot_list=[]):
     Recursively queries the Reddit API and returns a list containing the titles
      top posts
     """
+
     url = "https://www.reddit.com/r/{}/hot.json?limit=50".format(subreddit)
     headers = {"User-Agent": "My Client"}
 
