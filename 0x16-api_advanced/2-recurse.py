@@ -23,5 +23,3 @@ def recurse(subreddit, hot_list=[]):
         url = '{}&after={}'.format(url, posts['data']['after'])
     else:
         return None
-
-    return hot_list
